@@ -20,110 +20,111 @@ jobs:
     - name: Create Android Project
       run: |
         mkdir -p app/src/main/java/com/bahanabaz/app
-        mkdir -p app/src/main/res/layout
         mkdir -p app/src/main/res/values
 
-        cat > settings.gradle << 'EOF'
-        rootProject.name = "BahanaBaz"
-        include ':app'
-        EOF
+        cat > settings.gradle << 'ENDOFFILE'
+rootProject.name = "BahanaBaz"
+include ':app'
+ENDOFFILE
 
-        cat > build.gradle << 'EOF'
-        buildscript {
-            repositories {
-                google()
-                mavenCentral()
-            }
-            dependencies {
-                classpath 'com.android.tools.build:gradle:7.4.2'
-                classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0'
-            }
-        }
-        allprojects {
-            repositories {
-                google()
-                mavenCentral()
-            }
-        }
-        EOF
+        cat > build.gradle << 'ENDOFFILE'
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0'
+    }
+}
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+ENDOFFILE
 
-        cat > app/build.gradle << 'EOF'
-        apply plugin: 'com.android.application'
-        apply plugin: 'kotlin-android'
-        android {
-            compileSdkVersion 34
-            defaultConfig {
-                applicationId "com.bahanabaz.app"
-                minSdkVersion 24
-                targetSdkVersion 34
-                versionCode 1
-                versionName "1.0"
-            }
-            compileOptions {
-                sourceCompatibility JavaVersion.VERSION_11
-                targetCompatibility JavaVersion.VERSION_11
-            }
-            kotlinOptions {
-                jvmTarget = '11'
-            }
-        }
-        dependencies {
-            implementation 'androidx.appcompat:appcompat:1.6.1'
-        }
-        EOF
+        cat > app/build.gradle << 'ENDOFFILE'
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+android {
+    compileSdkVersion 34
+    defaultConfig {
+        applicationId "com.bahanabaz.app"
+        minSdkVersion 24
+        targetSdkVersion 34
+        versionCode 1
+        versionName "1.0"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+}
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+}
+ENDOFFILE
 
-        cat > app/src/main/AndroidManifest.xml << 'EOF'
-        <?xml version="1.0" encoding="utf-8"?>
-        <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-            <uses-permission android:name="android.permission.INTERNET" />
-            <application
-                android:label="BahanaBaz"
-                android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-                android:usesCleartextTraffic="true">
-                <activity android:name=".MainActivity" android:exported="true">
-                    <intent-filter>
-                        <action android:name="android.intent.action.MAIN" />
-                        <category android:name="android.intent.category.LAUNCHER" />
-                    </intent-filter>
-                </activity>
-            </application>
-        </manifest>
-        EOF
+        cat > app/src/main/AndroidManifest.xml << 'ENDOFFILE'
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application
+        android:label="BahanaBaz"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".MainActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
+ENDOFFILE
 
-        cat > app/src/main/java/com/bahanabaz/app/MainActivity.kt << 'EOF'
-        package com.bahanabaz.app
-        import android.os.Bundle
-        import android.webkit.WebView
-        import android.webkit.WebViewClient
-        import androidx.appcompat.app.AppCompatActivity
-        class MainActivity : AppCompatActivity() {
-            private lateinit var webView: WebView
-            override fun onCreate(savedInstanceState: Bundle?) {
-                super.onCreate(savedInstanceState)
-                webView = WebView(this)
-                setContentView(webView)
-                webView.settings.javaScriptEnabled = true
-                webView.settings.domStorageEnabled = true
-                webView.webViewClient = WebViewClient()
-                webView.loadUrl("https://bahanabuzz.lovable.app/")
-            }
-            override fun onBackPressed() {
-                if (webView.canGoBack()) webView.goBack()
-                else super.onBackPressed()
-            }
-        }
-        EOF
+        cat > app/src/main/java/com/bahanabaz/app/MainActivity.kt << 'ENDOFFILE'
+package com.bahanabaz.app
+import android.os.Bundle
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import androidx.appcompat.app.AppCompatActivity
+class MainActivity : AppCompatActivity() {
+    private lateinit var webView: WebView
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        webView = WebView(this)
+        setContentView(webView)
+        webView.settings.javaScriptEnabled = true
+        webView.settings.domStorageEnabled = true
+        webView.webViewClient = WebViewClient()
+        webView.loadUrl("https://bahanabuzz.lovable.app/")
+    }
+    override fun onBackPressed() {
+        if (webView.canGoBack()) webView.goBack()
+        else super.onBackPressed()
+    }
+}
+ENDOFFILE
 
-        cat > app/src/main/res/values/styles.xml << 'EOF'
-        <?xml version="1.0" encoding="utf-8"?>
-        <resources>
-            <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"/>
-        </resources>
-        EOF
+        cat > app/src/main/res/values/styles.xml << 'ENDOFFILE'
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"/>
+</resources>
+ENDOFFILE
 
-    - name: Setup Gradle Wrapper
+    - name: Setup Gradle 7.6.1
       run: |
-        gradle wrapper --gradle-version 7.6.1
+        wget -q https://services.gradle.org/distributions/gradle-7.6.1-bin.zip -P /tmp
+        unzip -q /tmp/gradle-7.6.1-bin.zip -d /opt/gradle
+        /opt/gradle/gradle-7.6.1/bin/gradle wrapper
         chmod +x gradlew
 
     - name: Build APK
